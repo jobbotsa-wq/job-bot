@@ -6,9 +6,20 @@ Bot de automatización de búsqueda y aplicación a empleos en LinkedIn. Uso per
 
 - Rama principal: `master`
 - Repositorio: `https://github.com/jobbotsa-wq/job-bot`
-- **Después de CADA cambio:** hacer commit + push a `master` inmediatamente
+- **Después de CADA cambio:** ejecutar validación → si pasa → commit + push a `master`
 - No acumular cambios — un commit por tarea o modificación concreta
 - Formato de mensaje: `tipo: descripción breve en español` (feat, fix, docs, chore)
+
+## Flujo pre-commit (OBLIGATORIO antes de cada commit)
+
+```bash
+python check.py        # verifica sintaxis + dependencias + tests
+```
+
+- Si `check.py` retorna exit 0 → proceder con commit + push
+- Si retorna exit 1 → corregir los errores antes de commitear, nunca subir código roto
+- `check.py` corre: sintaxis de todos los `.py`, dependencias core, `pytest tests/` si existe la carpeta
+- Al agregar nueva funcionalidad, agregar el test correspondiente en `tests/`
 
 ## Stack
 
