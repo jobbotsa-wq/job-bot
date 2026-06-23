@@ -1,0 +1,45 @@
+# ============================================================
+#  FILTROS DE BÚSQUEDA — user_001
+#  Edita este archivo y luego copia los valores a profile.yaml
+# ============================================================
+
+# --- PALABRAS CLAVE (el bot busca con todas estas) ----------
+# En español:
+KEYWORDS_ES=
+#   Ejemplos: Desarrollador Backend, Ingeniero de Software, Desarrollador Python,
+#             Analista de Datos, Ingeniero DevOps, Desarrollador Full Stack
+
+# En inglés:
+KEYWORDS_EN=
+#   Ejemplos: Backend Developer, Software Engineer, Python Developer,
+#             Data Engineer, DevOps Engineer, Full Stack Developer, Cloud Engineer
+
+# --- MODALIDAD ----------------------------------------------
+# Opciones: remote (remoto), hybrid (híbrido), onsite (presencial)
+MODALITY=remote, hybrid
+
+# --- EXPERIENCIA --------------------------------------------
+EXPERIENCE_MIN_YEARS=
+EXPERIENCE_MAX_YEARS=
+
+# --- UBICACIONES (si no es 100% remoto) ---------------------
+LOCATIONS=Colombia, Latinoamérica
+
+# --- SALARIO ------------------------------------------------
+SALARY_MIN=
+SALARY_CURRENCY=COP     # COP | USD | EUR
+
+# --- IDIOMAS DE LAS OFERTAS ---------------------------------
+OFFER_LANGUAGES=Spanish, English
+
+# --- PALABRAS QUE DESCARTAN LA OFERTA ----------------------
+# Si la oferta contiene alguna de estas, se omite
+EXCLUDE_KEYWORDS=
+#   Ejemplos: Solo Bogotá presencial, Java Senior, .NET exclusivo,
+#             Requires US work authorization, Must be located in USA
+
+# --- PUNTAJE MÍNIMO PARA APLICAR (0-100) -------------------
+MIN_MATCH_SCORE=70
+
+# --- MÁXIMO DE APLICACIONES POR EJECUCIÓN ------------------
+MAX_APPLICATIONS_PER_RUN=15

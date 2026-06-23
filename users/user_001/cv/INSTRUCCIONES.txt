@@ -1,0 +1,21 @@
+# ============================================================
+#  CARPETA CV — user_001
+# ============================================================
+#
+#  Coloca aquí tu hoja de vida en formato PDF.
+#  El archivo debe llamarse: cv.pdf
+#
+#  Esta carpeta está en .gitignore — el PDF NUNCA sube al repo.
+#
+#  Para GitHub Actions (ejecución en la nube), el CV se sube
+#  como secret en base64:
+#
+#    Paso 1 — Convertir el PDF a base64 (en terminal):
+#      Windows PowerShell:
+#        [Convert]::ToBase64String([IO.File]::ReadAllBytes("cv.pdf")) | Out-File cv_base64.txt
+#      Linux/Mac:
+#        base64 -w0 cv.pdf > cv_base64.txt
+#
+#    Paso 2 — Copiar el contenido de cv_base64.txt
+#    Paso 3 — Pegarlo en GitHub > Settings > Secrets > CV_PDF_BASE64
+#
