@@ -9,6 +9,9 @@ ACCOUNTS.txt
 data/*.db
 data/*.json
 
+# Logs de ejecucion (locales, no van al repo)
+logs/
+
 # Python
 __pycache__/
 *.py[cod]

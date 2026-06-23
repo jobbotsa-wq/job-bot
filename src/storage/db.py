@@ -1,6 +1,9 @@
 import sqlite3
 import os
+import logging
 from datetime import datetime
+
+logger = logging.getLogger("jobbot")
 
 
 def get_db_path(user_id: str) -> str:
@@ -10,7 +13,9 @@ def get_db_path(user_id: str) -> str:
 
 
 def init_db(user_id: str) -> sqlite3.Connection:
-    conn = sqlite3.connect(get_db_path(user_id))
+    path = get_db_path(user_id)
+    logger.debug(f"Abriendo base de datos: {path}")
+    conn = sqlite3.connect(path)
     conn.execute("""
         CREATE TABLE IF NOT EXISTS applications (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,6 +31,7 @@ def init_db(user_id: str) -> sqlite3.Connection:
         )
     """)
     conn.commit()
+    logger.info(f"Base de datos lista para usuario '{user_id}'")
     return conn
 
 
@@ -33,10 +39,18 @@ def already_applied(conn: sqlite3.Connection, job_id: str) -> bool:
     row = conn.execute(
         "SELECT 1 FROM applications WHERE job_id = ?", (job_id,)
     ).fetchone()
-    return row is not None
+    result = row is not None
+    if result:
+        logger.debug(f"Job ya aplicado anteriormente: {job_id}")
+    return result
 
 
 def save_application(conn: sqlite3.Connection, job: dict, status: str = "applied"):
+    logger.debug(
+        f"Guardando aplicacion | job_id={job.get('id')} | "
+        f"titulo='{job.get('title')}' | empresa='{job.get('company')}' | "
+        f"status={status} | score={job.get('match_score', 0)}"
+    )
     conn.execute("""
         INSERT OR IGNORE INTO applications
         (job_id, title, company, platform, url, match_score, status, applied_at, notes)
@@ -53,6 +67,7 @@ def save_application(conn: sqlite3.Connection, job: dict, status: str = "applied
         job.get("notes", ""),
     ))
     conn.commit()
+    logger.info(f"Guardado [{status}]: '{job.get('title')}' @ {job.get('company')}")
 
 
 def get_applications(conn: sqlite3.Connection, limit: int = 100) -> list:
@@ -61,4 +76,5 @@ def get_applications(conn: sqlite3.Connection, limit: int = 100) -> list:
     ).fetchall()
     cols = ["id", "job_id", "title", "company", "platform", "url",
             "match_score", "status", "applied_at", "notes"]
+    logger.debug(f"Recuperadas {len(rows)} aplicaciones de la BD")
     return [dict(zip(cols, row)) for row in rows]

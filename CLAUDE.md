@@ -65,12 +65,26 @@ job-bot/
 └── .gitignore
 ```
 
+## Sistema de logs
+
+- Módulo centralizado: `src/logger.py` → `setup_logger(user_id)` retorna un `logging.Logger`
+- Todos los módulos usan `logger = logging.getLogger("jobbot")` al inicio
+- Archivos generados: `logs/YYYYMMDD_HHMMSS_{user_id}.txt` — uno por ejecución
+- Niveles:
+  - `DEBUG` → archivo únicamente (detalles internos: URLs, conteos, delays, texto parcial de respuestas)
+  - `INFO` → archivo + consola (eventos importantes: login, scoring, aplicación enviada)
+  - `WARNING` → archivo + consola (sin CV, Gemini no configurado, pagina sin texto)
+  - `ERROR` → archivo + consola con `exc_info=True` (fallas de login, SMTP, excepciones)
+- Carpeta `logs/` está en `.gitignore` — los logs son locales, no van al repo
+- **Regla:** todo cambio de código debe incluir logs relevantes en los puntos clave
+
 ## Archivos NUNCA en el repo (en .gitignore)
 
 - `users/*/credentials.yaml` — LinkedIn password, Gmail App Password, Gemini key
 - `users/*/cv/*.pdf` — HV/CV del usuario
 - `ACCOUNTS.txt` — resumen de todas las cuentas
 - `data/*.db` — base de datos SQLite local
+- `logs/` — logs de ejecución local
 
 ## Flujo principal (orchestrator.py)
 
