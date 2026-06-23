@@ -1,0 +1,53 @@
+name: Job Bot — Ejecución Semanal
+
+on:
+  schedule:
+    - cron: "0 14 * * 1"   # Lunes 9:00 AM hora Colombia (UTC-5 = 14:00 UTC)
+  workflow_dispatch:         # Permite ejecución manual desde GitHub
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Instalar Playwright browsers
+        run: playwright install chromium --with-deps
+
+      - name: Crear carpeta data
+        run: mkdir -p data
+
+      - name: Crear credentials.yaml desde secrets
+        run: |
+          cat > users/user_001/credentials.yaml << EOF
+          linkedin:
+            email: "${{ secrets.LINKEDIN_EMAIL }}"
+            password: "${{ secrets.LINKEDIN_PASSWORD }}"
+          gmail:
+            sender_email: "${{ secrets.GMAIL_SENDER }}"
+            app_password: "${{ secrets.GMAIL_APP_PASSWORD }}"
+          ai:
+            gemini_api_key: "${{ secrets.GEMINI_API_KEY }}"
+          EOF
+
+      - name: Descargar CV desde secrets (base64)
+        run: |
+          echo "${{ secrets.CV_PDF_BASE64 }}" | base64 -d > users/user_001/cv.pdf
+        continue-on-error: true   # No falla si no hay CV configurado
+
+      - name: Ejecutar bot
+        run: python main.py
+
+      - name: Limpiar credenciales
+        if: always()
+        run: rm -f users/user_001/credentials.yaml users/user_001/cv.pdf
