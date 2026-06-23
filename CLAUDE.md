@@ -2,6 +2,14 @@
 
 Bot de automatización de búsqueda y aplicación a empleos en LinkedIn. Uso personal inicial, escalable a múltiples usuarios y plataformas.
 
+## Reglas de Git (OBLIGATORIO)
+
+- Rama principal: `master`
+- Repositorio: `https://github.com/jobbotsa-wq/job-bot`
+- **Después de CADA cambio:** hacer commit + push a `master` inmediatamente
+- No acumular cambios — un commit por tarea o modificación concreta
+- Formato de mensaje: `tipo: descripción breve en español` (feat, fix, docs, chore)
+
 ## Stack
 
 - Python 3.11+, sin frameworks web
