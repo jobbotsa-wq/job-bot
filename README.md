@@ -106,7 +106,7 @@ El workflow se ejecuta automáticamente cada **lunes a las 9:00 AM (hora Colombi
 
 - Python 3.11+
 - Playwright (automatización de browser)
-- Google Gemini 1.5 Flash (scoring IA — tier gratuito)
+- Google Gemini 2.5 Flash (scoring IA — tier gratuito)
 - pdfplumber (extracción de CV)
 - SQLite (historial de aplicaciones)
 - GitHub Actions (ejecución programada gratuita)

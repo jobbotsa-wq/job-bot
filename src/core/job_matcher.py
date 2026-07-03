@@ -12,8 +12,8 @@ def setup_gemini(api_key: str):
         logger.error("GEMINI_API_KEY vacia — scoring deshabilitado")
         return None
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-1.5-flash")
-    logger.info("Cliente Gemini listo (modelo: gemini-1.5-flash)")
+    model = genai.GenerativeModel("gemini-2.5-flash")
+    logger.info("Cliente Gemini listo (modelo: gemini-2.5-flash)")
     return model
 
 

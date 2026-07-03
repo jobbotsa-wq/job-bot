@@ -25,7 +25,7 @@ python check.py        # verifica sintaxis + dependencias + tests
 
 - Python 3.11+, sin frameworks web
 - Playwright (sync API) — headless Chromium para automatización de LinkedIn
-- Google Gemini 1.5 Flash (`google-generativeai`) — scoring de afinidad oferta/perfil (tier gratuito: 15 req/min, 1500 req/día)
+- Google Gemini 2.5 Flash (`google-generativeai`) — scoring de afinidad oferta/perfil (tier gratuito). `gemini-1.5-flash` fue retirado por Google (404 NOT_FOUND) — validado 2026-07-03
 - pdfplumber — extracción de texto de CV en PDF
 - SQLite (stdlib `sqlite3`) — historial de aplicaciones por usuario
 - PyYAML — lectura de configuración y perfiles

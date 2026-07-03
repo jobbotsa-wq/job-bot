@@ -15,7 +15,7 @@ platforms:
 
 ai:
   provider: "gemini"
-  model: "gemini-1.5-flash"  # Modelo gratuito de Gemini
+  model: "gemini-2.5-flash"  # gemini-1.5-flash fue retirado por Google
   min_match_score: 70        # Score mínimo (0-100) para aplicar
 
 notifications:
