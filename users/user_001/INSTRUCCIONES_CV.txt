@@ -1,11 +1,12 @@
 # ============================================================
-#  CARPETA CV — user_001
+#  CV — user_001
 # ============================================================
 #
-#  Coloca aquí tu hoja de vida en formato PDF.
+#  Coloca tu hoja de vida en formato PDF en esta misma carpeta
+#  (users/user_001/), junto a este archivo.
 #  El archivo debe llamarse: cv.pdf
 #
-#  Esta carpeta está en .gitignore — el PDF NUNCA sube al repo.
+#  users/*/cv.pdf está en .gitignore — el PDF NUNCA sube al repo.
 #
 #  Para GitHub Actions (ejecución en la nube), el CV se sube
 #  como secret en base64:

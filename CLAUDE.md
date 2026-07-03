@@ -43,7 +43,7 @@ job-bot/
 │       ├── profile.yaml              # perfil y filtros (COMMITTED)
 │       ├── SEARCH_FILTERS.txt        # guía de filtros en texto plano
 │       ├── credentials.yaml          # credenciales (GITIGNORED)
-│       └── cv/cv.pdf                 # hoja de vida (GITIGNORED)
+│       └── cv.pdf                    # hoja de vida (GITIGNORED)
 ├── src/
 │   ├── core/
 │   │   ├── orchestrator.py           # itera usuarios → plataformas → aplica
@@ -81,7 +81,7 @@ job-bot/
 ## Archivos NUNCA en el repo (en .gitignore)
 
 - `users/*/credentials.yaml` — LinkedIn password, Gmail App Password, Gemini key
-- `users/*/cv/*.pdf` — HV/CV del usuario
+- `users/*/cv.pdf` — HV/CV del usuario
 - `ACCOUNTS.txt` — resumen de todas las cuentas
 - `data/*.db` — base de datos SQLite local
 - `logs/` — logs de ejecución local

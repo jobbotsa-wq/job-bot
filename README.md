@@ -22,7 +22,7 @@ job-bot/
 │       ├── profile.yaml            # Perfil y filtros de búsqueda (committed)
 │       ├── SEARCH_FILTERS.txt      # Guía para definir filtros en texto plano
 │       ├── credentials.yaml        # Credenciales (gitignored — NUNCA al repo)
-│       └── cv/cv.pdf               # Hoja de vida PDF (gitignored)
+│       └── cv.pdf                  # Hoja de vida PDF (gitignored)
 ├── src/
 │   ├── core/
 │   │   ├── orchestrator.py         # Motor principal
@@ -62,7 +62,7 @@ Editar `credentials.yaml` con:
 
 ### 3. Agregar tu CV
 
-Coloca tu hoja de vida en `users/user_001/cv/cv.pdf`.
+Coloca tu hoja de vida en `users/user_001/cv.pdf`.
 
 ### 4. Configurar tu perfil
 

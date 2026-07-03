@@ -1,6 +1,6 @@
 # Credenciales y archivos privados — NUNCA al repo
 users/*/credentials.yaml
-users/*/cv/*.pdf
+users/*/cv.pdf
 ACCOUNTS.txt
 .env
 *.env
