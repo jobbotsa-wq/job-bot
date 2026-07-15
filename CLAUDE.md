@@ -48,7 +48,8 @@ job-bot/
 │   ├── core/
 │   │   ├── orchestrator.py           # itera usuarios → plataformas → aplica
 │   │   ├── cv_parser.py              # extrae texto del PDF con pdfplumber
-│   │   └── job_matcher.py            # scoring 0-100 con Gemini
+│   │   ├── job_matcher.py            # scoring 0-100 con Gemini
+│   │   └── cv_reviewer.py            # reporte de sugerencias CV en formato XYZ (sin fabricar metricas)
 │   ├── platforms/
 │   │   ├── base_platform.py          # ABC con login/search_jobs/apply/close
 │   │   └── linkedin/
@@ -59,6 +60,7 @@ job-bot/
 │   ├── notifier/email_notifier.py    # HTML email con resumen (aplicadas, externas, errores)
 │   └── storage/db.py                 # init_db, already_applied, save_application, get_applications
 ├── main.py                           # python main.py → run_all_users()
+├── cv_review.py                      # python cv_review.py [user_id] → reporte XYZ del CV
 ├── ACCOUNTS.txt                      # cuentas del proyecto (GITIGNORED)
 ├── requirements.txt
 ├── README.md
@@ -82,6 +84,7 @@ job-bot/
 
 - `users/*/credentials.yaml` — LinkedIn password, Gmail App Password, Gemini key
 - `users/*/cv.pdf` — HV/CV del usuario
+- `users/*/cv_xyz_review.md` — reporte generado por `cv_review.py` (contiene texto del CV)
 - `ACCOUNTS.txt` — resumen de todas las cuentas
 - `data/*.db` — base de datos SQLite local
 - `logs/` — logs de ejecución local
@@ -144,6 +147,14 @@ run_all_users()
 - `save_application(conn, job, status)` — status values: `"applied"`, `"skipped_score"`, `"skipped_external"`, `"error"`
 - `already_applied()` chequea por `job_id` único (`"linkedin_{job_id}"`) para evitar re-aplicaciones entre ejecuciones
 - El workflow limpia `credentials.yaml` y `cv.pdf` con `rm -f` en el paso `if: always()` al final
+
+## Revisión de CV en formato XYZ (`cv_review.py`)
+
+Herramienta manual, no conectada al flujo autónomo del bot: `python cv_review.py [user_id]` (default `user_001`).
+
+- Extrae el texto del CV con `cv_parser.extract_cv_text()` y le pide a Gemini reescribir las viñetas de experiencia en formato XYZ (`"Logré [X], medido por [Y], mediante [Z]"` — técnica atribuida a Laszlo Bock, Google).
+- **Regla inquebrantable:** nunca inventa una métrica (Y) que no esté ya en el texto original del CV. Si una viñeta no trae un dato medible, se deja igual y se marca `FALTA METRICA` con una sugerencia del *tipo* de dato que la fortalecería — nunca un número inventado.
+- Genera únicamente un reporte markdown (`users/<user_id>/cv_xyz_review.md`, gitignored) para que el usuario lo revise y aplique manualmente a su CV real. **No genera un PDF nuevo ni sube nada a LinkedIn** — el bot no gestiona el CV que Easy Apply usa.
 
 ## Al agregar una nueva plataforma
 

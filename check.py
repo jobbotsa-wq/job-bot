@@ -31,9 +31,11 @@ def main():
     results.append(run(
         'python -m py_compile '
         'main.py '
+        'cv_review.py '
         'src/core/orchestrator.py '
         'src/core/cv_parser.py '
         'src/core/job_matcher.py '
+        'src/core/cv_reviewer.py '
         'src/platforms/base_platform.py '
         'src/platforms/linkedin/login.py '
         'src/platforms/linkedin/job_search.py '

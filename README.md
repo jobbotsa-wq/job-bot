@@ -10,6 +10,7 @@ Bot de automatización para búsqueda y aplicación a ofertas de empleo en Linke
 - **Sin re-aplicaciones** — historial en SQLite por usuario.
 - **Email de resumen** — notificación HTML semanal con aplicaciones enviadas, links externos pendientes y errores.
 - **Escalable** — arquitectura multi-usuario y multi-plataforma (interfaz `BasePlatform`).
+- **Revisión de CV (formato XYZ)** — herramienta manual (`python cv_review.py`) que sugiere reescribir viñetas de logros en formato "Logré X, medido por Y, mediante Z". Nunca inventa métricas: si el CV no trae un dato medible, lo marca como pendiente en vez de inventarlo. Genera solo un reporte para revisión manual, no modifica el CV ni sube nada a LinkedIn.
 
 ## Estructura
 
@@ -73,6 +74,14 @@ Editar `users/user_001/profile.yaml` con tus datos, palabras clave y filtros. Pu
 ```bash
 python main.py
 ```
+
+### 6. (Opcional) Revisar tu CV con el formato XYZ
+
+```bash
+python cv_review.py user_001
+```
+
+Genera `users/user_001/cv_xyz_review.md` con sugerencias de reescritura de viñetas en formato XYZ (Google). No modifica tu `cv.pdf` ni sube nada a LinkedIn — es solo un reporte para que apliques manualmente lo que te sirva.
 
 ## GitHub Actions (ejecución automática semanal)
 
