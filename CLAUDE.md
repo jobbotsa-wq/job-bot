@@ -13,13 +13,23 @@ Bot de automatización de búsqueda y aplicación a empleos en LinkedIn. Uso per
 ## Flujo pre-commit (OBLIGATORIO antes de cada commit)
 
 ```bash
-python check.py        # verifica sintaxis + dependencias + tests
+python check.py        # verifica sintaxis + dependencias + tests + guardias de seguridad
 ```
 
 - Si `check.py` retorna exit 0 → proceder con commit + push
 - Si retorna exit 1 → corregir los errores antes de commitear, nunca subir código roto
-- `check.py` corre: sintaxis de todos los `.py`, dependencias core, `pytest tests/` si existe la carpeta
+- `check.py` corre: sintaxis de todos los `.py`, dependencias core, `pytest tests/` si existe la carpeta, y `tools/security_guards.py`
 - Al agregar nueva funcionalidad, agregar el test correspondiente en `tests/`
+- `.github/workflows/ci.yml` corre `check.py` en cada push/PR a `master` (ademas de la validacion local) — red de seguridad si algo se commitea sin correr `check.py` localmente
+
+## Guardias de seguridad (`tools/security_guards.py`)
+
+Corre como parte de `check.py` y tambien en CI. Verifica:
+- `.gitignore` sigue conteniendo las reglas de datos personales (`credentials.yaml`, `cv.pdf`, `cv_xyz_review.md`, `ACCOUNTS.txt`, `data/*.db`, `logs/`). Ya hubo una regresion real de esto (`cv/*.pdf` vs `cv.pdf`) que esta guardia habria detectado sola.
+- Si `.claude/settings.json` define `permissions.allow`, cada entrada debe estar en el allowlist revisado del propio script — evita que un permiso amplio (`Bash(*)`) se auto-apruebe sin que nadie lo note.
+- Al agregar una regla nueva de `.gitignore` para datos personales, o un permiso nuevo intencional en `permissions.allow`, actualizar `tools/security_guards.py` en el mismo PR.
+
+Las Actions de ambos workflows (`ci.yml`, `job_bot.yml`) estan pineadas a SHA exacto (no a tag flotante) y ambos declaran `permissions: contents: read` explicito.
 
 ## Stack
 

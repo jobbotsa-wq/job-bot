@@ -61,6 +61,9 @@ def main():
     else:
         print("\n  [Tests] No hay carpeta tests/ — omitiendo")
 
+    # 4. Guardias de seguridad (.gitignore, permisos de Claude Code)
+    results.append(run("python tools/security_guards.py", "Guardias de seguridad"))
+
     # Resultado final
     print(f"\n{'='*50}")
     if all(results):
